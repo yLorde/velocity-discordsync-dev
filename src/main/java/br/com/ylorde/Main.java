@@ -1,6 +1,8 @@
 package br.com.ylorde;
 
+import br.com.ylorde.commands.DiscordCommand;
 import br.com.ylorde.commands.DiscordSyncCommand;
+import br.com.ylorde.commands.DiscordUnSyncCommand;
 import br.com.ylorde.listener.LoginListener;
 import br.com.ylorde.utils.ConfigManager;
 import br.com.ylorde.utils.SQLiteManager;
@@ -15,6 +17,7 @@ import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 
 @Plugin(
@@ -54,6 +57,9 @@ public class Main {
         DiscordClient();
 
         server.getCommandManager().register("sync", new DiscordSyncCommand(this));
+        server.getCommandManager().register("unsync", new DiscordUnSyncCommand(this));
+        server.getCommandManager().register("discord", new DiscordCommand(this));
+
         server.getEventManager().register(this, new LoginListener(this));
 
         logger.info("Plugin iniciado!");
@@ -90,6 +96,11 @@ public class Main {
 
             if (configManager.getString("LINKED_ROLE").equals("LINKED_ROLE_ID") || configManager.getString("LINKED_ROLE").isBlank()) {
                 logger.error("LINKED_ROLE não configurado ou ausente!");
+                return;
+            }
+
+            if (configManager.getString("DISCORD_INVITE_URL").equals("YOUR_DISCORD_INVITE_HERE") || configManager.getString("DISCORD_INVITE_URL").isBlank()) {
+                logger.error("DISCORD_INVITE_URL não configurado ou ausente!");
                 return;
             }
 

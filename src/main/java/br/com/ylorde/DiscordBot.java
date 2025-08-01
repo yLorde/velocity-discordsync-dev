@@ -5,17 +5,14 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.util.Objects;
 
 public class DiscordBot extends ListenerAdapter {
@@ -49,10 +46,9 @@ public class DiscordBot extends ListenerAdapter {
         assert guild != null;
 
         guild.updateCommands().addCommands(
-                //Commands.context(Command.Type.USER, "MC: Banir usuário do servidor."),
-                Commands.context(Command.Type.USER, "MC: Remover conexão."),
-                Commands.context(Command.Type.USER, "MC: Visualizar nickname."),
-
+                Commands.slash("mc_nickname", "Mostra o nickname do jogador")
+                        .addOption(OptionType.USER, "User", "Qual jogador você deseja ver o nickname?", true),
+                Commands.slash("unsync", "Desvincular conta do minecraft."),
                 Commands.slash("sync", "Vincular conta do minecraft ao discord.")
                         .addOption(OptionType.STRING, "código", "Insira aqui o código informado pelo comando /sync usado no servidor.", true)
         ).queue();
@@ -61,7 +57,6 @@ public class DiscordBot extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("sync")) {
-
             String random_code = Objects.requireNonNull(event.getOption("código")).getAsString();
             String uuid = plugin.getSQLiteManager().getUUIDByRandomCode(random_code);
             String discord_id = event.getUser().getId();
@@ -99,7 +94,7 @@ public class DiscordBot extends ListenerAdapter {
     }
 
     @Override
-    public void onUserContextInteraction(UserContextInteractionEvent event) {
+    public void onUserContextInteraction(@NotNull UserContextInteractionEvent event) {
         if (event.getName().equals("MC: Remover conexão.")) {
             String uuid = plugin.getSQLiteManager().getUUIDByDiscordId(event.getUser().getId());
             if (uuid == null) {

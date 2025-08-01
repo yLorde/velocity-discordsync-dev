@@ -1,30 +1,28 @@
 package br.com.ylorde.commands;
 
 import br.com.ylorde.Main;
+import com.mojang.brigadier.Message;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
+public class DiscordCommand implements SimpleCommand {
+    private final Main plugin;
 
-public class DiscordUnSyncCommand implements SimpleCommand {
-    final Main plugin;
-
-    public DiscordUnSyncCommand(Main plugin) {
+    public DiscordCommand(Main plugin) {
         this.plugin = plugin;
     }
 
     @Override
-    public void execute(@NotNull final Invocation invocation) {
+    public void execute(@NotNull Invocation invocation) {
         CommandSource source = invocation.source();
         if (!(source instanceof Player player)) {
             plugin.getLogger().error("Apenas jogadores podem usar esse comando!");
             return;
         }
 
-        UUID uuid = player.getUniqueId();
-
-        
+        source.sendMessage(Component.text(plugin.configManager.getString("DISCORD_INVITE_URL").replaceAll("&", "§")));
     }
 }
