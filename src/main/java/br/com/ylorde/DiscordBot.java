@@ -91,11 +91,8 @@ public class DiscordBot extends ListenerAdapter {
                 event.reply("Erro ao vincular a conta").setEphemeral(true).queue();
             }
         }
-    }
 
-    @Override
-    public void onUserContextInteraction(@NotNull UserContextInteractionEvent event) {
-        if (event.getName().equals("MC: Remover conexão.")) {
+        if (event.getName().equals("unsync")) {
             String uuid = plugin.getSQLiteManager().getUUIDByDiscordId(event.getUser().getId());
             if (uuid == null) {
                 event.reply("Não foi possível remover a conexão deste jogador.").setEphemeral(true).queue();
@@ -111,7 +108,7 @@ public class DiscordBot extends ListenerAdapter {
             event.reply("Não foi possível remover a conexão deste jogador.").setEphemeral(true).queue();
         }
 
-        if (event.getName().equals("MC: Visualizar nickname.")) {
+        if (event.getName().equals("mc_nickname")) {
             String nickname = plugin.getSQLiteManager().getNicknameByDiscordId(event.getUser().getId());
             if (nickname == null) {
                 event.reply("Nenhum nickname vinculado a este usuário!").setEphemeral(true).queue();
@@ -120,4 +117,32 @@ public class DiscordBot extends ListenerAdapter {
             event.reply("O nickname do jogador é: **"+nickname+"**").setEphemeral(true).queue();
         }
     }
+
+//    @Override
+//    public void onUserContextInteraction(@NotNull UserContextInteractionEvent event) {
+//        if (event.getName().equals("MC: Remover conexão.")) {
+//            String uuid = plugin.getSQLiteManager().getUUIDByDiscordId(event.getUser().getId());
+//            if (uuid == null) {
+//                event.reply("Não foi possível remover a conexão deste jogador.").setEphemeral(true).queue();
+//                return;
+//            }
+//
+//            boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid, null);
+//            if (success) {
+//                event.reply("Conexão removida com sucesso!").setEphemeral(true).queue();
+//                return;
+//            }
+//
+//            event.reply("Não foi possível remover a conexão deste jogador.").setEphemeral(true).queue();
+//        }
+//
+//        if (event.getName().equals("MC: Visualizar nickname.")) {
+//            String nickname = plugin.getSQLiteManager().getNicknameByDiscordId(event.getUser().getId());
+//            if (nickname == null) {
+//                event.reply("Nenhum nickname vinculado a este usuário!").setEphemeral(true).queue();
+//                return;
+//            }
+//            event.reply("O nickname do jogador é: **"+nickname+"**").setEphemeral(true).queue();
+//        }
+//    }
 }
