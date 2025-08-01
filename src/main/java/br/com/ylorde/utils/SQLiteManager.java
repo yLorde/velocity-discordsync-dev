@@ -1,11 +1,8 @@
 package br.com.ylorde.utils;
 
-import net.dv8tion.jda.api.utils.SplitUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.NotNullByDefault;
 import org.slf4j.Logger;
 
-import java.io.CharArrayReader;
 import java.sql.*;
 import java.io.File;
 import java.util.UUID;
@@ -37,10 +34,6 @@ public class SQLiteManager {
         } catch (Exception e) {
             logger.error("[SQLite] Falha ao conectar: {}", e.getMessage());
         }
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 
     public void close() {
