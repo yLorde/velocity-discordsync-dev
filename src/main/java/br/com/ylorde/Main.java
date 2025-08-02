@@ -103,6 +103,14 @@ public class Main {
                 return;
             }
 
+            if(configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").equals("NEEDS_CONFIG") || configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").isBlank()) {
+                logger.error("CONSOLE_COMMAND_WHEN_PLAYER_SYNC não configurado ou ausente!");
+            }
+
+            if(configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").equals("NEEDS_CONFIG") || configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").isBlank()) {
+                logger.error("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC não configurado ou ausente!");
+            }
+
             discordBot.start();
             logger.info("DiscordBOT Iniciado!");
         } catch (Exception e) {

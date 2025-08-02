@@ -24,7 +24,20 @@ public class DiscordUnSyncCommand implements SimpleCommand {
         }
 
         UUID uuid = player.getUniqueId();
+        String discord_id = plugin.getSQLiteManager().getDiscordIdByUUID(uuid);
 
-        
+
+        if (discord_id  !=  null) {
+            boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid.toString(), null);
+            if (success) {
+
+                source.sendRichMessage("<green>Você foi desvinculado ao discord com sucesso!</green>");
+            } else {
+                source.sendRichMessage("<red>Não foi possível te desvincular ao discord. Tente novamente mais tarde.</red>");
+            }
+        } else {
+            source.sendRichMessage("<red>Apenas pessoas vinculadas ao discord podem usar este comando!</red>");
+        }
+
     }
 }

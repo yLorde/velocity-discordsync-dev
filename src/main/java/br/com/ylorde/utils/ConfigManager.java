@@ -41,6 +41,9 @@ public class ConfigManager {
             defaultConfig.node("ALLOW_PLAYER_NOT_CONNECTED").set(true);
             defaultConfig.node("KICK_MESSAGE_NOT_SYNC").set("&cApenas permitido entrada de jogadores vinculados ao discord\n&aEntre no discord &7discord.gg/INVITE_EXAMPLE\n&eSeu código de conexão: &a%codigo\n\n&aUse &b/sync");
 
+            defaultConfig.node("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").set("NEEDS_CONFIG");
+            defaultConfig.node("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").set("NEEDS_CONFIG");
+
             loader.save(defaultConfig);
         }
 
