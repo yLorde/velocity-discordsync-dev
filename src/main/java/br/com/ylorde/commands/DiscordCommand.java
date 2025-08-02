@@ -22,6 +22,6 @@ public class DiscordCommand implements SimpleCommand {
             return;
         }
 
-        source.sendMessage(Component.text(plugin.configManager.getString("DISCORD_INVITE_URL").replaceAll("&", "§")));
+        source.sendMessage(Component.text(plugin.configManager.getString("DISCORD_COMMAND_MESSAGE").replaceAll("&", "§")));
     }
 }

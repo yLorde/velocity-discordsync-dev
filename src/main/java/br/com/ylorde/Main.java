@@ -2,6 +2,7 @@ package br.com.ylorde;
 
 import br.com.ylorde.commands.DiscordCommand;
 import br.com.ylorde.commands.DiscordSyncCommand;
+import br.com.ylorde.commands.DiscordUnSyncCommand;
 import br.com.ylorde.listener.LoginListener;
 import br.com.ylorde.utils.ConfigManager;
 import br.com.ylorde.utils.SQLiteManager;
@@ -55,7 +56,7 @@ public class Main {
         DiscordClient();
 
         server.getCommandManager().register("sync", new DiscordSyncCommand(this));
-        server.getCommandManager().register("unsync", new DiscordSyncCommand(this));
+        server.getCommandManager().register("unsync", new DiscordUnSyncCommand(this));
         server.getCommandManager().register("discord", new DiscordCommand(this));
 
         server.getEventManager().register(this, new LoginListener(this));
