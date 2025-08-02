@@ -21,7 +21,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "ydiscordsync",
         name = "yDiscordSync",
-        version = "1.5",
+        version = "1.4",
         description = "Plugin feito para conectar o servidor de Minecraft ao Discord.",
         url = "https://www.ylorde.com.br",
         authors = {"yLorde_"}
