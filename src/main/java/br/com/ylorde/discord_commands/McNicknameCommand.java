@@ -1,7 +1,10 @@
 package br.com.ylorde.discord_commands;
 
 import br.com.ylorde.Main;
+import br.com.ylorde.sqlite.GetNicknameByDiscordId;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+
+import java.util.Objects;
 
 public class McNicknameCommand {
 
@@ -15,7 +18,10 @@ public class McNicknameCommand {
 
     public void execute() {
         if (event.getName().equals("mc_nickname")) {
-            String nickname = plugin.getSQLiteManager().getNicknameByDiscordId(event.getUser().getId());
+            String user_id = Objects.requireNonNull(event.getOption("user")).getAsUser().getId();
+            //String nickname = plugin.getSQLiteManager().getNicknameByDiscordId(user_id);
+            String nickname = new GetNicknameByDiscordId(plugin).getNicknameByDiscordId(user_id);
+
             if (nickname == null) {
                 event.reply("Nenhum nickname vinculado a este usuário!").setEphemeral(true).queue();
                 return;

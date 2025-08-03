@@ -1,6 +1,7 @@
 package br.com.ylorde.listener;
 
 import br.com.ylorde.Main;
+import br.com.ylorde.sqlite.*;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.LoginEvent;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
@@ -23,19 +24,27 @@ public class LoginListener {
         UUID uuid = event.getPlayer().getUniqueId();
         Player player = event.getPlayer();
 
-        if (plugin.sqliteManager.getNicknameByUUID(uuid.toString()) == null || plugin.sqliteManager.getNicknameByUUID(uuid.toString()).isBlank()) {
+        String nickname = new GetNicknameByUUID(plugin).getNicknameByUUID(uuid.toString());
+
+        //plugin.sqliteManager.getNicknameByUUID(uuid.toString()) == null || plugin.sqliteManager.getNicknameByUUID(uuid.toString()).isBlank()
+        if (nickname == null || nickname.isBlank()) {
             plugin.getLogger().info("PRIMEIRA VEZ DO JOGADOR {} NO SERVIDOR", player.getUsername());
-            plugin.sqliteManager.savePlayer(uuid, player.getUsername());
+            //plugin.sqliteManager.savePlayer(uuid, player.getUsername());
+            new SavePlayer(plugin).savePlayer(uuid, player.getUsername());
         }
 
         if (!plugin.configManager.getBool("ALLOW_PLAYER_NOT_CONNECTED")) {
-            String discord_id = plugin.sqliteManager.getDiscordIdByUUID(uuid);
+            //String discord_id = plugin.sqliteManager.getDiscordIdByUUID(uuid);
+            String discord_id = new GetDiscordIdByUUID(plugin).getDiscordIdByUUID(uuid);
             if (discord_id != null && discord_id.length() > 16) return;
 
-            String random_code = plugin.sqliteManager.getRandomCode(uuid);
+            //String random_code = plugin.sqliteManager.getRandomCode(uuid);
+
+            String random_code = new GetRandomCode(plugin).getRandomCode(uuid);
 
             if (random_code == null && discord_id == null) {
-                random_code = plugin.sqliteManager.getSyncCode(uuid);
+                //random_code = plugin.sqliteManager.getSyncCode(uuid);
+                random_code = new GetSyncCode(plugin).getSyncCode(uuid);
             }
 
             if (discord_id == null || discord_id.length() < 16) {
@@ -53,7 +62,8 @@ public class LoginListener {
         UUID uuid = event.getPlayer().getUniqueId();
         String nickname = event.getPlayer().getUsername();
 
-        plugin.sqliteManager.updateNickname(uuid, nickname);
+        //plugin.sqliteManager.updateNickname(uuid, nickname);
+        new UpdateNickname(plugin).updateNickname(uuid, nickname);
     }
 
     @Subscribe

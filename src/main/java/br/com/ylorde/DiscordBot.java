@@ -24,7 +24,6 @@ public class DiscordBot extends ListenerAdapter {
                 .setActivity(
                         Activity.playing(plugin.configManager.getString("DISCORD_STATUS"))
                 )
-                //.addEventListeners(this, new McNicknameListener(plugin))
                 .addEventListeners(this, new DiscordListeners(plugin))
                 .addEventListeners(this).build();
 
@@ -42,8 +41,10 @@ public class DiscordBot extends ListenerAdapter {
         assert guild != null;
 
         guild.updateCommands().addCommands(
-                Commands.slash("mc_nickname", "Mostra o nickname do jogador"),
+                Commands.slash("mc_nickname", "Mostra o nickname do jogador")
+                        .addOption(OptionType.USER, "user", "Qual jogador você deseja ver o nickname?", true),
                         //.addOption(OptionType.USER, "User", "Qual jogador você deseja ver o nickname?", true),
+
                 Commands.slash("unsync", "Desvincular conta do minecraft."),
                 Commands.slash("sync", "Vincular conta do minecraft ao discord.")
                         .addOption(OptionType.STRING, "código", "Insira aqui o código informado pelo comando /sync usado no servidor.", true)

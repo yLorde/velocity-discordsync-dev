@@ -1,6 +1,10 @@
 package br.com.ylorde.discord_commands;
 
 import br.com.ylorde.Main;
+import br.com.ylorde.sqlite.GetNicknameByUUID;
+import br.com.ylorde.sqlite.GetUUIDByRandomCode;
+import br.com.ylorde.sqlite.SetDiscordIdByUUID;
+import br.com.ylorde.sqlite.SetRandomCodeByUUID;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
@@ -21,7 +25,8 @@ public class SyncDiscordCommand {
     public void execute() {
         if (event.getName().equals("sync")) {
             String random_code = Objects.requireNonNull(event.getOption("código")).getAsString();
-            String uuid = plugin.getSQLiteManager().getUUIDByRandomCode(random_code);
+            //String uuid = plugin.getSQLiteManager().getUUIDByRandomCode(random_code);
+            String uuid = new GetUUIDByRandomCode(plugin).getUUIDByRandomCode(random_code);
             String discord_id = event.getUser().getId();
             String linked_role_id = plugin.configManager.getString("LINKED_ROLE");
 
@@ -42,10 +47,13 @@ public class SyncDiscordCommand {
                 return;
             }
 
-            boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid, discord_id);
-            plugin.getSQLiteManager().setRandomCodeByUUID(uuid, null);
+            //boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid, discord_id);
+            boolean success = new SetDiscordIdByUUID(plugin).setDiscordIdByUUID(uuid, discord_id);
+            //plugin.getSQLiteManager().setRandomCodeByUUID(uuid, null);
+            new SetRandomCodeByUUID(plugin).setRandomCodeByUUID(uuid, null);
             if (success) {
-                String nickname = plugin.getSQLiteManager().getNicknameByUUID(uuid);
+                //String nickname = plugin.getSQLiteManager().getNicknameByUUID(uuid);
+                String nickname = new GetNicknameByUUID(plugin).getNicknameByUUID(uuid);
 
                 guild.addRoleToMember(user, role).queue();
 

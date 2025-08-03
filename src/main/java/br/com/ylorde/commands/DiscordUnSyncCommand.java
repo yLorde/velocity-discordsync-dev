@@ -1,6 +1,8 @@
 package br.com.ylorde.commands;
 
 import br.com.ylorde.Main;
+import br.com.ylorde.sqlite.GetDiscordIdByUUID;
+import br.com.ylorde.sqlite.SetDiscordIdByUUID;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
@@ -24,11 +26,12 @@ public class DiscordUnSyncCommand implements SimpleCommand {
         }
 
         UUID uuid = player.getUniqueId();
-        String discord_id = plugin.getSQLiteManager().getDiscordIdByUUID(uuid);
-
+        //String discord_id = plugin.getSQLiteManager().getDiscordIdByUUID(uuid);
+        String discord_id = new GetDiscordIdByUUID(plugin).getDiscordIdByUUID(uuid);
 
         if (discord_id  !=  null) {
-            boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid.toString(), null);
+            //boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid.toString(), null);
+            boolean success = new SetDiscordIdByUUID(plugin).setDiscordIdByUUID(uuid.toString(), null);
             if (success) {
 
                 source.sendRichMessage("<green>Você foi desvinculado ao discord com sucesso!</green>");

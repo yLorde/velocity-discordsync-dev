@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.Connection;
 
 @Plugin(
         id = "ydiscordsync",
@@ -71,13 +72,9 @@ public class Main {
         logger.info("Plugin encerrado!");
     }
 
-    public SQLiteManager getSQLiteManager() {
-        return sqliteManager;
-    }
-
-    public Logger getLogger() {
-        return logger;
-    }
+    public SQLiteManager getSQLiteManager() { return sqliteManager; }
+    public Connection getSQLiteConnection() { return sqliteManager.connection; }
+    public Logger getLogger() { return logger; }
 
     public void DiscordClient() {
         this.discordBot = new DiscordBot(this);
