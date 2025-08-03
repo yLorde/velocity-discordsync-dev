@@ -1,9 +1,7 @@
 package br.com.ylorde.listener;
 
 import br.com.ylorde.Main;
-import br.com.ylorde.discord_commands.McNicknameCommand;
-import br.com.ylorde.discord_commands.SyncDiscordCommand;
-import br.com.ylorde.discord_commands.UnSyncDiscordCommand;
+import br.com.ylorde.discord_commands.*;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -25,5 +23,14 @@ public class DiscordListeners extends ListenerAdapter {
 
         UnSyncDiscordCommand unsync = new UnSyncDiscordCommand(plugin, event);
         unsync.execute();
+
+        AllPlayersNotLinkedCommand allPlayersNotLinkedCommand = new AllPlayersNotLinkedCommand(plugin, event);
+        allPlayersNotLinkedCommand.execute();
+
+        AllPlayersLinkedCommand allPlayersLinkedCommand = new AllPlayersLinkedCommand(plugin, event);
+        allPlayersLinkedCommand.execute();
+
+        AllPlayersCommand allPlayersCommand = new AllPlayersCommand(plugin, event);
+        allPlayersCommand.execute();
     }
 }

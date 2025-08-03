@@ -46,6 +46,11 @@ public class DiscordBot extends ListenerAdapter {
                         //.addOption(OptionType.USER, "User", "Qual jogador você deseja ver o nickname?", true),
 
                 Commands.slash("unsync", "Desvincular conta do minecraft."),
+
+                Commands.slash("all_players_not_linked", "Exibe os jogadores do servidor sem estarem vinculados."),
+                Commands.slash("all_players_linked", "Exibe todos os jogadores que estão vinculados ao discord."),
+                Commands.slash("all_players", "Exibe todos os jogadores que entraram no discord."),
+
                 Commands.slash("sync", "Vincular conta do minecraft ao discord.")
                         .addOption(OptionType.STRING, "código", "Insira aqui o código informado pelo comando /sync usado no servidor.", true)
         ).queue();
