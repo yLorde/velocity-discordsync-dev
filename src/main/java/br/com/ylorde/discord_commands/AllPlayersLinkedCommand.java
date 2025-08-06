@@ -17,7 +17,7 @@ public class AllPlayersLinkedCommand {
         if (event.getName().equals("all_players_linked")) {
             String[] players = new GetAllPlayersLinked(plugin).getAllPlayersLinked();
 
-            event.reply(""+players.length).setEphemeral(true).queue();
+            event.reply("Um total de **"+players.length+"** jogadores sincronizados com o discord.").setEphemeral(true).queue();
         }
     }
 }

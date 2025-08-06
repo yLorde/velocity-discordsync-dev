@@ -58,6 +58,9 @@ public class SyncDiscordCommand {
                 guild.addRoleToMember(user, role).queue();
 
                 event.reply("Vinculado com sucesso ao nick **"+nickname+"**").setEphemeral(true).queue();
+                plugin.executeConsoleCommand(
+                        plugin.configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").replace("%player", nickname)
+                );
             } else {
                 event.reply("Erro ao vincular a conta").setEphemeral(true).queue();
             }

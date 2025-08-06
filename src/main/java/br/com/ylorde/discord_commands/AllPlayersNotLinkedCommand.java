@@ -17,7 +17,7 @@ public class AllPlayersNotLinkedCommand {
         if (event.getName().equals("all_players_not_linked")) {
             String[] players = new GetAllPlayersNotLinked(plugin).getAllPlayersNotLinked();
 
-            event.reply(""+players.length).setEphemeral(true).queue();
+            event.reply("Um total de **"+players.length+"** Não sincronizados com o discord.").setEphemeral(true).queue();
         }
     }
 }

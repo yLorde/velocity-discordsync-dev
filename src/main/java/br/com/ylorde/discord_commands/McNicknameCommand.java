@@ -19,6 +19,7 @@ public class McNicknameCommand {
     public void execute() {
         if (event.getName().equals("mc_nickname")) {
             String user_id = Objects.requireNonNull(event.getOption("user")).getAsUser().getId();
+            String username = Objects.requireNonNull(event.getOption("user").getAsUser().getName());
             //String nickname = plugin.getSQLiteManager().getNicknameByDiscordId(user_id);
             String nickname = new GetNicknameByDiscordId(plugin).getNicknameByDiscordId(user_id);
 
@@ -26,7 +27,7 @@ public class McNicknameCommand {
                 event.reply("Nenhum nickname vinculado a este usuário!").setEphemeral(true).queue();
                 return;
             }
-            event.reply("O nickname do jogador é: **"+nickname+"**").setEphemeral(true).queue();
+            event.reply("O nickname do usuário **"+ username +"** no minecraft é: **"+nickname+"**").setEphemeral(true).queue();
         }
     }
 }

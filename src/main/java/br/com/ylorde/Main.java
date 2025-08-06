@@ -12,6 +12,7 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.proxy.ConsoleCommandSource;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.slf4j.Logger;
 
@@ -26,7 +27,7 @@ import java.sql.Connection;
         version = "1.4",
         description = "Plugin feito para conectar o servidor de Minecraft ao Discord.",
         url = "https://www.ylorde.com.br",
-        authors = {"yLorde_"}
+        authors = {"yLorde_", "Luccas Person"}
 )
 public class Main {
     private final ProxyServer server;
@@ -75,6 +76,18 @@ public class Main {
     public SQLiteManager getSQLiteManager() { return sqliteManager; }
     public Connection getSQLiteConnection() { return sqliteManager.connection; }
     public Logger getLogger() { return logger; }
+    public ProxyServer getServer() { return server; };
+
+    public void executeConsoleCommand(String command) {
+        server.getCommandManager()
+                .executeAsync(server.getConsoleCommandSource(), command).thenAccept(success -> {
+                    if (success) {
+                        logger.info("Comando executado com sucesso: " + command);
+                    } else {
+                        logger.warn("Falha ao executar comando: " + command);
+                    }
+        });
+    }
 
     public void DiscordClient() {
         this.discordBot = new DiscordBot(this);

@@ -6,8 +6,11 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.jetbrains.annotations.NotNull;
 
 public class DiscordBot extends ListenerAdapter {
     public JDA bot;
@@ -24,6 +27,14 @@ public class DiscordBot extends ListenerAdapter {
                 .setActivity(
                         Activity.playing(plugin.configManager.getString("DISCORD_STATUS"))
                 )
+                .enableIntents(
+                        GatewayIntent.GUILD_MEMBERS,
+                        GatewayIntent.DIRECT_MESSAGES,
+                        GatewayIntent.MESSAGE_CONTENT,
+                        GatewayIntent.GUILD_MESSAGES,
+                        GatewayIntent.GUILD_MODERATION,
+                        GatewayIntent.GUILD_INVITES
+                )
                 .addEventListeners(this, new DiscordListeners(plugin))
                 .addEventListeners(this).build();
 
@@ -36,23 +47,27 @@ public class DiscordBot extends ListenerAdapter {
         }
     }
 
-    public void onReady(ReadyEvent event) {
+    public void onReady(@NotNull ReadyEvent event) {
         Guild guild = bot.getGuildById(plugin.configManager.getString("DISCORD_GUILD_ID"));
         assert guild != null;
 
         guild.updateCommands().addCommands(
                 Commands.slash("mc_nickname", "Mostra o nickname do jogador")
                         .addOption(OptionType.USER, "user", "Qual jogador você deseja ver o nickname?", true),
-                        //.addOption(OptionType.USER, "User", "Qual jogador você deseja ver o nickname?", true),
 
-                Commands.slash("unsync", "Desvincular conta do minecraft."),
+                Commands.slash("all_players_not_linked", "Exibe os jogadores do servidor sem estarem vinculados.")
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_ROLES)),
 
-                Commands.slash("all_players_not_linked", "Exibe os jogadores do servidor sem estarem vinculados."),
-                Commands.slash("all_players_linked", "Exibe todos os jogadores que estão vinculados ao discord."),
-                Commands.slash("all_players", "Exibe todos os jogadores que entraram no discord."),
+                Commands.slash("all_players_linked", "Exibe todos os jogadores que estão vinculados ao discord.")
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_ROLES)),
+
+                Commands.slash("all_players", "Exibe todos os jogadores que entraram no discord.")
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_ROLES)),
 
                 Commands.slash("sync", "Vincular conta do minecraft ao discord.")
-                        .addOption(OptionType.STRING, "código", "Insira aqui o código informado pelo comando /sync usado no servidor.", true)
+                        .addOption(OptionType.STRING, "código", "Insira aqui o código informado pelo comando /sync usado no servidor.", true),
+
+                Commands.slash("unsync", "Desvincular conta do minecraft.")
         ).queue();
     }
 }

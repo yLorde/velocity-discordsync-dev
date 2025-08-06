@@ -1,11 +1,9 @@
 package br.com.ylorde.utils;
 
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.sql.*;
 import java.io.File;
-import java.util.UUID;
 
 public class SQLiteManager {
     private final File databaseFile;
@@ -51,7 +49,9 @@ public class SQLiteManager {
                     + "uuid TEXT PRIMARY KEY,"
                     + "nickname TEXT,"
                     + "discord_id TEXT,"
-                    + "random_code TEXT"
+                    + "random_code TEXT,"
+                    + "banned TEXT,"
+                    + "ban_reason TEXT"
                     + ");");
             logger.info("[SQLite] Tabela criada com sucesso.");
         } catch (SQLException e) {

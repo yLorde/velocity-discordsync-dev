@@ -1,9 +1,16 @@
 package br.com.ylorde.discord_commands;
 
 import br.com.ylorde.Main;
+import br.com.ylorde.sqlite.GetNicknameByDiscordId;
+import br.com.ylorde.sqlite.GetNicknameByUUID;
 import br.com.ylorde.sqlite.GetUUIDByDiscordId;
 import br.com.ylorde.sqlite.SetDiscordIdByUUID;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.user.UserTypingEvent;
+
+import java.util.Objects;
 
 public class UnSyncDiscordCommand {
 
@@ -26,8 +33,21 @@ public class UnSyncDiscordCommand {
 
             //boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid, null);
             boolean success = new SetDiscordIdByUUID(plugin).setDiscordIdByUUID(uuid, null);
+            String nickname = new GetNicknameByUUID(plugin).getNicknameByUUID(uuid.toString());
+
+            Role role = Objects.requireNonNull(event.getGuild()).getRoleById(
+                    plugin.configManager.getString("LINKED_ROLE")
+            );
+            User user = event.getUser();
+
             if (success) {
                 event.reply("Conexão removida com sucesso!").setEphemeral(true).queue();
+                plugin.executeConsoleCommand(
+                        plugin.configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").replace("%player", nickname)
+                );
+
+                assert role != null;
+                event.getGuild().removeRoleFromMember(user, role).queue();
                 return;
             }
 

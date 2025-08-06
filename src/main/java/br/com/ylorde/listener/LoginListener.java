@@ -50,7 +50,10 @@ public class LoginListener {
             if (discord_id == null || discord_id.length() < 16) {
                 assert random_code != null;
                 player.disconnect(Component.text(
-                    plugin.configManager.getString("KICK_MESSAGE_NOT_SYNC").replaceAll("&", "§").replace("%codigo", random_code)
+                    plugin.configManager.getString("KICK_MESSAGE_NOT_SYNC")
+                            .replaceAll("&", "§")
+                            .replace("%codigo", random_code)
+                            .replace("%discord_invite_url", plugin.configManager.getString("DISCORD_INVITE_URL"))
                 ));
             }
         };

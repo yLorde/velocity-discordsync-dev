@@ -17,7 +17,7 @@ public class AllPlayersCommand {
         if (event.getName().equals("all_players")) {
             String[] players = new GetAllPlayers(plugin).getAllPlayers();
 
-            event.reply(""+players.length).setEphemeral(true).queue();
+            event.reply("Um total de **"+players.length+"** jogadores no banco de dados de jogadores.").setEphemeral(true).queue();
         }
     }
 }
