@@ -36,9 +36,13 @@ public class ConfigManager {
             defaultConfig.node("LINKED_ROLE").set("LINKED_ROLE_ID");
 
             defaultConfig.node("DISCORD_INVITE_URL").set("YOUR_DISCORD_INVITE_HERE");
+            defaultConfig.node("DISCORD_COMMAND_MESSAGE").set("&eJoin from us discord discord.gg/example");
 
             defaultConfig.node("ALLOW_PLAYER_NOT_CONNECTED").set(true);
             defaultConfig.node("KICK_MESSAGE_NOT_SYNC").set("&cApenas permitido entrada de jogadores vinculados ao discord\n&aEntre no discord &7discord.gg/INVITE_EXAMPLE\n&eSeu código de conexão: &a%codigo\n\n&aUse &b/sync");
+
+            defaultConfig.node("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").set("NEEDS_CONFIG");
+            defaultConfig.node("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").set("NEEDS_CONFIG");
 
             loader.save(defaultConfig);
         }

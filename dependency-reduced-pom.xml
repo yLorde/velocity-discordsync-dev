@@ -4,7 +4,7 @@
   <groupId>br.com.ylorde.Plugin</groupId>
   <artifactId>yDiscordSync</artifactId>
   <name>yDiscordSync</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.4</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>

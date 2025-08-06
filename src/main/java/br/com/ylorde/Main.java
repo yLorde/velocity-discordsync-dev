@@ -2,6 +2,7 @@ package br.com.ylorde;
 
 import br.com.ylorde.commands.DiscordCommand;
 import br.com.ylorde.commands.DiscordSyncCommand;
+import br.com.ylorde.commands.DiscordUnSyncCommand;
 import br.com.ylorde.listener.LoginListener;
 import br.com.ylorde.utils.ConfigManager;
 import br.com.ylorde.utils.SQLiteManager;
@@ -11,21 +12,22 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.proxy.ConsoleCommandSource;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
+import java.sql.Connection;
 
 @Plugin(
         id = "ydiscordsync",
         name = "yDiscordSync",
-        version = "1.4-SNAPSHOT",
+        version = "1.4",
         description = "Plugin feito para conectar o servidor de Minecraft ao Discord.",
         url = "https://www.ylorde.com.br",
-        authors = {"yLorde_"}
+        authors = {"yLorde_", "Luccas Person"}
 )
 public class Main {
     private final ProxyServer server;
@@ -56,7 +58,7 @@ public class Main {
         DiscordClient();
 
         server.getCommandManager().register("sync", new DiscordSyncCommand(this));
-        server.getCommandManager().register("unsync", new DiscordSyncCommand(this));
+        server.getCommandManager().register("unsync", new DiscordUnSyncCommand(this));
         server.getCommandManager().register("discord", new DiscordCommand(this));
 
         server.getEventManager().register(this, new LoginListener(this));
@@ -71,12 +73,20 @@ public class Main {
         logger.info("Plugin encerrado!");
     }
 
-    public SQLiteManager getSQLiteManager() {
-        return sqliteManager;
-    }
+    public SQLiteManager getSQLiteManager() { return sqliteManager; }
+    public Connection getSQLiteConnection() { return sqliteManager.connection; }
+    public Logger getLogger() { return logger; }
+    public ProxyServer getServer() { return server; };
 
-    public Logger getLogger() {
-        return logger;
+    public void executeConsoleCommand(String command) {
+        server.getCommandManager()
+                .executeAsync(server.getConsoleCommandSource(), command).thenAccept(success -> {
+                    if (success) {
+                        logger.info("Comando executado com sucesso: " + command);
+                    } else {
+                        logger.warn("Falha ao executar comando: " + command);
+                    }
+        });
     }
 
     public void DiscordClient() {
@@ -101,6 +111,14 @@ public class Main {
             if (configManager.getString("DISCORD_INVITE_URL").equals("YOUR_DISCORD_INVITE_HERE") || configManager.getString("DISCORD_INVITE_URL").isBlank()) {
                 logger.error("DISCORD_INVITE_URL não configurado ou ausente!");
                 return;
+            }
+
+            if(configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").equals("NEEDS_CONFIG") || configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").isBlank()) {
+                logger.error("CONSOLE_COMMAND_WHEN_PLAYER_SYNC não configurado ou ausente!");
+            }
+
+            if(configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").equals("NEEDS_CONFIG") || configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").isBlank()) {
+                logger.error("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC não configurado ou ausente!");
             }
 
             discordBot.start();
