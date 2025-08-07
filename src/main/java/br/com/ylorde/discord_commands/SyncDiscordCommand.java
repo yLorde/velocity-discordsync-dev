@@ -25,7 +25,6 @@ public class SyncDiscordCommand {
     public void execute(String commandName) {
         if (event.getName().equals(commandName)) {
             String random_code = Objects.requireNonNull(event.getOption("código")).getAsString();
-            //String uuid = plugin.getSQLiteManager().getUUIDByRandomCode(random_code);
             String uuid = new GetUUIDByRandomCode(plugin).getUUIDByRandomCode(random_code);
             String discord_id = event.getUser().getId();
             String linked_role_id = plugin.configManager.getString("LINKED_ROLE");
@@ -47,12 +46,9 @@ public class SyncDiscordCommand {
                 return;
             }
 
-            //boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid, discord_id);
             boolean success = new SetDiscordIdByUUID(plugin).setDiscordIdByUUID(uuid, discord_id);
-            //plugin.getSQLiteManager().setRandomCodeByUUID(uuid, null);
             new SetRandomCodeByUUID(plugin).setRandomCodeByUUID(uuid, null);
             if (success) {
-                //String nickname = plugin.getSQLiteManager().getNicknameByUUID(uuid);
                 String nickname = new GetNicknameByUUID(plugin).getNicknameByUUID(uuid);
 
                 guild.addRoleToMember(user, role).queue();

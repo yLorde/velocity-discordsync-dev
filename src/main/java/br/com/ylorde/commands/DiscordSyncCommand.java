@@ -28,13 +28,10 @@ public class DiscordSyncCommand implements SimpleCommand {
 
         UUID uuid = player.getUniqueId();
 
-        //String discord_id = plugin.sqliteManager.getDiscordIdByUUID(uuid);
         String discord_id = new GetDiscordIdByUUID(plugin).getDiscordIdByUUID(uuid);
 
         if (discord_id == null) {
-            //String random_code = plugin.getSQLiteManager().getRandomCode(uuid);
             String random_code = new GetRandomCode(plugin).getRandomCode(uuid);
-            //if (random_code == null) random_code = plugin.getSQLiteManager().getSyncCode(uuid);
             if (random_code == null) random_code = new GetSyncCode(plugin).getSyncCode(uuid);
             source.sendRichMessage("<green>Vá ao Discord e use o comando: </green><yellow>/sync "+random_code+"</yellow>");
             return;

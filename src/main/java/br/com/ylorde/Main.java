@@ -23,7 +23,7 @@ import java.sql.Connection;
 @Plugin(
         id = "ydiscordsync",
         name = "yDiscordSync",
-        version = "1.5",
+        version = "1.5-SNAPSHOT",
         description = "Plugin feito para conectar o servidor de Minecraft ao Discord.",
         url = "https://www.ylorde.com.br",
         authors = {"yLorde_", "Luccas Person"}

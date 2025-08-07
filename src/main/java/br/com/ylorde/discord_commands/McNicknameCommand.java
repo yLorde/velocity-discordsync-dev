@@ -20,7 +20,6 @@ public class McNicknameCommand {
         if (event.getName().equals(commandName)) {
             String user_id = Objects.requireNonNull(event.getOption("user")).getAsUser().getId();
             String username = Objects.requireNonNull(event.getOption("user").getAsUser().getName());
-            //String nickname = plugin.getSQLiteManager().getNicknameByDiscordId(user_id);
             String nickname = new GetNicknameByDiscordId(plugin).getNicknameByDiscordId(user_id);
 
             if (nickname == null) {
