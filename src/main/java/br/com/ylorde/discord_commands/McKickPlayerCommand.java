@@ -33,7 +33,7 @@ public class McKickPlayerCommand {
             if (player != null) {
                 player.disconnect(Component.text(
                         plugin.convertToColoredText(
-                                plugin.configManager.getString("DISCORD_KICK_MESSAGE_FORMAT").replace("%reason", motivo)
+                                plugin.configManager.getString("KICK_MESSAGE_FORMAT").replace("%reason", motivo)
                         )
                 ));
                 event.reply("Jogador expulso com sucesso!").setEphemeral(true).queue();

@@ -38,5 +38,8 @@ public class DiscordListeners extends ListenerAdapter {
 
         McBanPlayerCommand mcBanPlayerCommand = new McBanPlayerCommand(plugin, event);
         mcBanPlayerCommand.execute("mc_ban_player");
+
+        McUnBanCommand mcUnBanCommand = new McUnBanCommand(plugin, event);
+        mcUnBanCommand.execute("mc_unban_player");
     }
 }

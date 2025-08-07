@@ -1,8 +1,13 @@
 package br.com.ylorde.discord_commands;
 
 import br.com.ylorde.Main;
+import com.velocitypowered.api.proxy.Player;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.kyori.adventure.text.Component;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class McBanPlayerCommand {
@@ -26,7 +31,34 @@ public class McBanPlayerCommand {
             String tempo = Objects.requireNonNull(event.getOption("tempo")).getAsString();
             String variante = Objects.requireNonNull(event.getOption("variante")).getAsString();
 
-            event.reply("ok").setEphemeral(true).queue();
+            try (PreparedStatement stmt = plugin.getSQLiteConnection().prepareStatement(
+                    "UPDATE players SET banned = ?, ban_reason = ?, ban_time = ? WHERE nickname = ?;"
+            )) {
+                stmt.setString(1, "true");
+                stmt.setString(2, motivo);
+                stmt.setString(3, tempo + " "+variante);
+                stmt.setString(4, nickname);
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            Player player = (Player) plugin.getServer().getAllPlayers().stream()
+                    .filter(p -> p.getUsername().equals(nickname))
+                    .findAny().orElse(null);
+
+            if (player != null) {
+                player.disconnect(Component.text(
+                        plugin.convertToColoredText(
+                                plugin.configManager.getString("BAN_MESSAGE_FORMAT")
+                                        .replace("%reason", motivo)
+                                        .replace("%time_remaining", tempo+" "+variante)
+                        )
+                ));
+                event.reply("Jogador banido com sucesso!").setEphemeral(true).queue();
+            } else {
+                event.reply("O jogador não estava online, porém foi banido e receberá o banimento assim que entrar!").setEphemeral(true).queue();
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ public class LoginListener {
             new SavePlayer(plugin).savePlayer(uuid, player.getUsername());
         }
 
-        String hasBanned = new CheckPlayerBanByUUID(plugin).checkPlayerBackByUUID(uuid.toString());
+        String hasBanned = new CheckPlayerBanByUUID(plugin).checkPlayerBanByUUID(uuid.toString());
         if (hasBanned != null) {
 
             try (PreparedStatement stmt = plugin.getSQLiteConnection().prepareStatement(

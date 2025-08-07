@@ -59,7 +59,7 @@ public class DiscordBot extends ListenerAdapter {
                         .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS)),
 
                 Commands.slash("mc_ban_player", "Bane membros no servidor de minecraft pelo nickname")
-                        .addOption(OptionType.STRING,"nickname", "Qual o nickname do jgoador que você deseja banir?", true)
+                        .addOption(OptionType.STRING,"nickname", "Qual o nickname do jogador que você deseja banir?", true)
                         .addOption(OptionType.STRING, "motivo", "Por qual motivo você deseja banir o jogador?", true)
                         .addOption(OptionType.INTEGER, "tempo", "Por qual tempo deseja banir o jogador?", true)
                         .addOptions(
@@ -71,6 +71,9 @@ public class DiscordBot extends ListenerAdapter {
                                         .addChoice("anos", "anos")
                         ),
 
+                Commands.slash("mc_unban_player", "Remove o banimento de um jogador banido pelo yDiscordSync")
+                        .addOption(OptionType.STRING, "nickname", "Qual o nickname do jogador que você deseja remover o banimento?", true)
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)),
 
                 Commands.slash("mc_nickname", "Mostra o nickname do jogador")
                         .addOption(OptionType.USER, "user", "Qual jogador você deseja ver o nickname?", true),

@@ -13,7 +13,7 @@ public class CheckPlayerBanByUUID {
         this.plugin = plugin;
     }
 
-    public String checkPlayerBackByUUID(String uuid) {
+    public String checkPlayerBanByUUID(String uuid) {
         String banned = null;
         try (PreparedStatement stmt = plugin.getSQLiteConnection().prepareStatement("SELECT * FROM players WHERE uuid = ?;")) {
             stmt.setString(1, uuid);
