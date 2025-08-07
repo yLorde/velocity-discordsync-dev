@@ -32,5 +32,8 @@ public class DiscordListeners extends ListenerAdapter {
 
         AllPlayersCommand allPlayersCommand = new AllPlayersCommand(plugin, event);
         allPlayersCommand.execute();
+
+        McKickPlayerCommand mcKickPlayerCommand = new McKickPlayerCommand(plugin, event);
+        mcKickPlayerCommand.execute();
     }
 }

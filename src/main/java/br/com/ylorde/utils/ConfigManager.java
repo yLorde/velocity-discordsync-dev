@@ -44,6 +44,8 @@ public class ConfigManager {
             defaultConfig.node("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").set("NEEDS_CONFIG");
             defaultConfig.node("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").set("NEEDS_CONFIG");
 
+            defaultConfig.node("DISCORD_KICK_MESSAGE_FORMAT").set("&eVocê expulso!\n&7Motivo:\n\n&c%reason");
+
             loader.save(defaultConfig);
         }
 

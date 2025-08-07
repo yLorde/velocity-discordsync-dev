@@ -12,7 +12,6 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
-import com.velocitypowered.api.proxy.ConsoleCommandSource;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.slf4j.Logger;
 
@@ -24,7 +23,7 @@ import java.sql.Connection;
 @Plugin(
         id = "ydiscordsync",
         name = "yDiscordSync",
-        version = "1.4",
+        version = "1.5",
         description = "Plugin feito para conectar o servidor de Minecraft ao Discord.",
         url = "https://www.ylorde.com.br",
         authors = {"yLorde_", "Luccas Person"}
@@ -87,6 +86,10 @@ public class Main {
                         logger.warn("Falha ao executar comando: " + command);
                     }
         });
+    }
+
+    public String convertToColoredText(String originalText) {
+        return originalText.replace("&", "§");
     }
 
     public void DiscordClient() {

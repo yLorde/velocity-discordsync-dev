@@ -51,7 +51,11 @@ public class SQLiteManager {
                     + "discord_id TEXT,"
                     + "random_code TEXT,"
                     + "banned TEXT,"
-                    + "ban_reason TEXT"
+                    + "ban_reason TEXT,"
+                    + "ban_time TEXT,"
+                    + "muted TEXT,"
+                    + "mute_reason TEXT,"
+                    + "mute_time"
                     + ");");
             logger.info("[SQLite] Tabela criada com sucesso.");
         } catch (SQLException e) {

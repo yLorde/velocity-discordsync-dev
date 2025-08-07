@@ -52,6 +52,11 @@ public class DiscordBot extends ListenerAdapter {
         assert guild != null;
 
         guild.updateCommands().addCommands(
+                Commands.slash("mc_kick_player", "Expulsa membros no servidor de minecraft pelo nickname")
+                        .addOption(OptionType.STRING, "nickname", "Qual o nickname do jogador que você deseja expulsar?", true)
+                        .addOption(OptionType.STRING, "motivo", "Por qual motivo você deseja expulsar esse jogador?", true)
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS)),
+
                 Commands.slash("mc_nickname", "Mostra o nickname do jogador")
                         .addOption(OptionType.USER, "user", "Qual jogador você deseja ver o nickname?", true),
 
