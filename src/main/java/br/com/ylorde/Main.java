@@ -89,7 +89,7 @@ public class Main {
     }
 
     public String convertToColoredText(String originalText) {
-        return originalText.replace("&", "§");
+        return originalText.replaceAll("&", "§");
     }
 
     public void DiscordClient() {

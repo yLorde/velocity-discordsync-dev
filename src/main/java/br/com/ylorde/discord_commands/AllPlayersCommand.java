@@ -13,8 +13,8 @@ public class AllPlayersCommand {
         this.event = event;
     }
 
-    public void execute() {
-        if (event.getName().equals("all_players")) {
+    public void execute(String commandName) {
+        if (event.getName().equals(commandName)) {
             String[] players = new GetAllPlayers(plugin).getAllPlayers();
 
             event.reply("Um total de **"+players.length+"** jogadores no banco de dados de jogadores.").setEphemeral(true).queue();

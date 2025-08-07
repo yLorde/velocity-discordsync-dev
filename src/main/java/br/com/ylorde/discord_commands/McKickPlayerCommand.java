@@ -16,8 +16,13 @@ public class McKickPlayerCommand {
         this.event = event;
     }
 
-    public void execute() {
-        if (event.getName().equals("mc_kick_player")) {
+    public void execute(String commandName) {
+        if (event.getName().equals(commandName)) {
+            if (!plugin.configManager.getBool("USE_MODERATOR_FUNCTIONS")) {
+                event.reply("As funções de moderação estão desabilitadas!").setEphemeral(true).queue();
+                return;
+            }
+
             String nickname = Objects.requireNonNull(event.getOption("nickname")).getAsString();
             String motivo = Objects.requireNonNull(event.getOption("motivo")).getAsString();
 

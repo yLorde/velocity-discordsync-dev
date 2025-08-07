@@ -22,8 +22,8 @@ public class SyncDiscordCommand {
         this.event = event;
     }
 
-    public void execute() {
-        if (event.getName().equals("sync")) {
+    public void execute(String commandName) {
+        if (event.getName().equals(commandName)) {
             String random_code = Objects.requireNonNull(event.getOption("código")).getAsString();
             //String uuid = plugin.getSQLiteManager().getUUIDByRandomCode(random_code);
             String uuid = new GetUUIDByRandomCode(plugin).getUUIDByRandomCode(random_code);

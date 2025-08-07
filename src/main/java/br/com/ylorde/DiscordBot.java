@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,6 +57,20 @@ public class DiscordBot extends ListenerAdapter {
                         .addOption(OptionType.STRING, "nickname", "Qual o nickname do jogador que você deseja expulsar?", true)
                         .addOption(OptionType.STRING, "motivo", "Por qual motivo você deseja expulsar esse jogador?", true)
                         .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS)),
+
+                Commands.slash("mc_ban_player", "Bane membros no servidor de minecraft pelo nickname")
+                        .addOption(OptionType.STRING,"nickname", "Qual o nickname do jgoador que você deseja banir?", true)
+                        .addOption(OptionType.STRING, "motivo", "Por qual motivo você deseja banir o jogador?", true)
+                        .addOption(OptionType.INTEGER, "tempo", "Por qual tempo deseja banir o jogador?", true)
+                        .addOptions(
+                                new OptionData(OptionType.STRING, "variante", "Qual a variante de tempo?", true)
+                                        .addChoice("minutos", "minutos")
+                                        .addChoice("horas", "horas")
+                                        .addChoice("dias", "dias")
+                                        .addChoice("meses", "meses")
+                                        .addChoice("anos", "anos")
+                        ),
+
 
                 Commands.slash("mc_nickname", "Mostra o nickname do jogador")
                         .addOption(OptionType.USER, "user", "Qual jogador você deseja ver o nickname?", true),

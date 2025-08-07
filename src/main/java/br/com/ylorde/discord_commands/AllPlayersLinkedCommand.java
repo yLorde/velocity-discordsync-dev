@@ -13,8 +13,8 @@ public class AllPlayersLinkedCommand {
         this.event = event;
     }
 
-    public void execute() {
-        if (event.getName().equals("all_players_linked")) {
+    public void execute(String commandName) {
+        if (event.getName().equals(commandName)) {
             String[] players = new GetAllPlayersLinked(plugin).getAllPlayersLinked();
 
             event.reply("Um total de **"+players.length+"** jogadores sincronizados com o discord.").setEphemeral(true).queue();

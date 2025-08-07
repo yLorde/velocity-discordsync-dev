@@ -33,6 +33,15 @@ public class LoginListener {
             new SavePlayer(plugin).savePlayer(uuid, player.getUsername());
         }
 
+        String hasBanned = new CheckPlayerBanByUUID(plugin).checkPlayerBackByUUID(uuid.toString());
+        if (hasBanned != null) {
+            player.disconnect(Component.text(
+                    plugin.convertToColoredText(
+                            plugin.configManager.getString("BAN_MESSAGE_FORMAT")
+                    )
+            ));
+        }
+
         if (!plugin.configManager.getBool("ALLOW_PLAYER_NOT_CONNECTED")) {
             //String discord_id = plugin.sqliteManager.getDiscordIdByUUID(uuid);
             String discord_id = new GetDiscordIdByUUID(plugin).getDiscordIdByUUID(uuid);

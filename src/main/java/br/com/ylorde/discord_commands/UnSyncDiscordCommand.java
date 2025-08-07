@@ -22,8 +22,8 @@ public class UnSyncDiscordCommand {
         this.event = event;
     }
 
-    public void execute() {
-        if (event.getName().equals("unsync")) {
+    public void execute(String commandName) {
+        if (event.getName().equals(commandName)) {
            // String uuid = plugin.getSQLiteManager().getUUIDByDiscordId(event.getUser().getId());
             String uuid = new GetUUIDByDiscordId(plugin).getUUIDByDiscordId(event.getUser().getId());
             if (uuid == null) {
