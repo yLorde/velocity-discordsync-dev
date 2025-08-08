@@ -86,7 +86,11 @@ public class LoginListener {
         UUID uuid = event.getPlayer().getUniqueId();
         String nickname = event.getPlayer().getUsername();
 
-        //plugin.sqliteManager.updateNickname(uuid, nickname);
+        if (player.hasPermission("ydiscordsync.admin")) {
+            String newVersion = "1.5-SNAPSHOT";
+            player.sendRichMessage("<green>Uma nova versão do yDiscordSync está disponível. A versão "+newVersion+"já pode ser baixada no pelo site https://www.ylorde.com.br/#/downloads</green>");
+        }
+
         new UpdateNickname(plugin).updateNickname(uuid, nickname);
     }
 

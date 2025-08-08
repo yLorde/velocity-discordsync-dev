@@ -31,12 +31,19 @@ public class McBanPlayerCommand {
             String tempo = Objects.requireNonNull(event.getOption("tempo")).getAsString();
             String variante = Objects.requireNonNull(event.getOption("variante")).getAsString();
 
+            String ban_time;
+            if (variante.equals("permanente")) {
+                ban_time = variante;
+            } else {
+                ban_time = tempo + " " + variante;
+            }
+
             try (PreparedStatement stmt = plugin.getSQLiteConnection().prepareStatement(
                     "UPDATE players SET banned = ?, ban_reason = ?, ban_time = ? WHERE nickname = ?;"
             )) {
                 stmt.setString(1, "true");
                 stmt.setString(2, motivo);
-                stmt.setString(3, tempo + " "+variante);
+                stmt.setString(3, ban_time);
                 stmt.setString(4, nickname);
                 stmt.executeUpdate();
             } catch (SQLException e) {
@@ -52,7 +59,7 @@ public class McBanPlayerCommand {
                         plugin.convertToColoredText(
                                 plugin.configManager.getString("BAN_MESSAGE_FORMAT")
                                         .replace("%reason", motivo)
-                                        .replace("%time_remaining", tempo+" "+variante)
+                                        .replace("%time_remaining", ban_time)
                         )
                 ));
                 event.reply("Jogador banido com sucesso!").setEphemeral(true).queue();

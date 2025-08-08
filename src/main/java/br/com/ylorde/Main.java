@@ -23,7 +23,7 @@ import java.sql.Connection;
 @Plugin(
         id = "ydiscordsync",
         name = "yDiscordSync",
-        version = "1.5-SNAPSHOT",
+        version = "1.5",
         description = "Plugin feito para conectar o servidor de Minecraft ao Discord.",
         url = "https://www.ylorde.com.br",
         authors = {"yLorde_", "Luccas Person"}
@@ -51,6 +51,8 @@ public class Main {
 
     @Subscribe
     public void onProxyInitialize(ProxyInitializeEvent event) {
+        new AutoUpdater(server, logger, this).checkForUpdate();
+
         this.sqliteManager = new SQLiteManager(new File("plugins/ydiscordsync"), this.logger);
         this.sqliteManager.setupTables();
 

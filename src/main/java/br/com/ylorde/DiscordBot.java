@@ -69,6 +69,7 @@ public class DiscordBot extends ListenerAdapter {
                                         .addChoice("dias", "dias")
                                         .addChoice("meses", "meses")
                                         .addChoice("anos", "anos")
+                                        .addChoice("permanente", "permanente")
                         ),
 
                 Commands.slash("mc_unban_player", "Remove o banimento de um jogador banido pelo yDiscordSync")
