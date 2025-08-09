@@ -1,0 +1,23 @@
+package br.com.ylorde.commands;
+
+import br.com.ylorde.Main;
+import com.velocitypowered.api.command.SimpleCommand;
+import org.jetbrains.annotations.NotNull;
+
+public class ProxySoftBan implements SimpleCommand {
+    private final Main plugin;
+
+    public ProxySoftBan(Main plugin) {
+        this.plugin = plugin;
+    }
+
+    @Override
+    public void execute(@NotNull final Invocation invocation) {
+
+    }
+
+    @Override
+    public boolean hasPermission(final @NotNull Invocation invocation) {
+        return invocation.source().hasPermission("ydiscordsync.proxysoftban");
+    }
+}

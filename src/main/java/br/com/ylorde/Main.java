@@ -1,8 +1,6 @@
 package br.com.ylorde;
 
-import br.com.ylorde.commands.DiscordCommand;
-import br.com.ylorde.commands.DiscordSyncCommand;
-import br.com.ylorde.commands.DiscordUnSyncCommand;
+import br.com.ylorde.commands.*;
 import br.com.ylorde.listener.LoginListener;
 import br.com.ylorde.utils.ConfigManager;
 import br.com.ylorde.utils.SQLiteManager;
@@ -13,10 +11,12 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.nio.file.Path;
 import java.sql.Connection;
 
@@ -58,9 +58,16 @@ public class Main {
 
         DiscordClient();
 
+        //DISCORD
         server.getCommandManager().register("sync", new DiscordSyncCommand(this));
         server.getCommandManager().register("unsync", new DiscordUnSyncCommand(this));
         server.getCommandManager().register("discord", new DiscordCommand(this));
+
+        //MODERATOR
+        server.getCommandManager().register("proxyBan", new ProxyBan(this));
+        server.getCommandManager().register("proxyKick", new ProxyKick(this));
+        server.getCommandManager().register("proxyMute", new ProxyMute(this));
+        server.getCommandManager().register("proxySoftBan", new ProxySoftBan(this));
 
         server.getEventManager().register(this, new LoginListener(this));
 
@@ -90,41 +97,28 @@ public class Main {
         });
     }
 
-    public String convertToColoredText(String originalText) {
+    public String convertToColoredText(@NotNull String originalText) {
         return originalText.replaceAll("&", "§");
+    }
+
+    public boolean checkConfig(String param1, String param2) {
+        if (configManager.getString(param1).equals(param2) || configManager.getString(param1).isBlank()) {
+            logger.error(param1 + " não configurado ou ausente!");
+            return true;
+        }
+        return false;
     }
 
     public void DiscordClient() {
         this.discordBot = new DiscordBot(this);
 
         try {
-            if (configManager.getString("BOT_TOKEN").equals("TOKEN_HERE") || configManager.getString("BOT_TOKEN").isBlank()) {
-                logger.error("BOT_TOKEN não configurado ou ausente");
-                return;
-            }
-
-            if (configManager.getString("DISCORD_GUILD_ID").equals("YOUR_DISCORD_GUILD_ID") || configManager.getString("DISCORD_GUILD_ID").isBlank()) {
-                logger.error("DISCORD_SERVER_ID não configurado ou ausente!");
-                return;
-            }
-
-            if (configManager.getString("LINKED_ROLE").equals("LINKED_ROLE_ID") || configManager.getString("LINKED_ROLE").isBlank()) {
-                logger.error("LINKED_ROLE não configurado ou ausente!");
-                return;
-            }
-
-            if (configManager.getString("DISCORD_INVITE_URL").equals("YOUR_DISCORD_INVITE_HERE") || configManager.getString("DISCORD_INVITE_URL").isBlank()) {
-                logger.error("DISCORD_INVITE_URL não configurado ou ausente!");
-                return;
-            }
-
-            if(configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").equals("NEEDS_CONFIG") || configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").isBlank()) {
-                logger.error("CONSOLE_COMMAND_WHEN_PLAYER_SYNC não configurado ou ausente!");
-            }
-
-            if(configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").equals("NEEDS_CONFIG") || configManager.getString("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").isBlank()) {
-                logger.error("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC não configurado ou ausente!");
-            }
+            if (checkConfig("BOT_TOKEN", "TOKEN_HERE")) return;
+            if (checkConfig("DISCORD_GUILD_ID", "YOUR_DISCORD_GUILD_ID")) return;
+            if (checkConfig("LINKED_ROLE", "LINKED_ROLE_ID")) return;
+            if (checkConfig("DISCORD_INVITE_URL", "YOUR_DISCORD_INVITE_HERE")) return;;
+            if (checkConfig("CONSOLE_COMMAND_WHEN_PLAYER_SYNC", "NEEDS_CONFIG")) return;
+            if (checkConfig("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC", "NEEDS_CONFIG")) return;
 
             discordBot.start();
             logger.info("DiscordBOT Iniciado!");
