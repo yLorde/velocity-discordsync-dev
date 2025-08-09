@@ -2,6 +2,10 @@ package br.com.ylorde;
 
 import br.com.ylorde.commands.*;
 import br.com.ylorde.listener.LoginListener;
+import br.com.ylorde.moderator_commands.ProxyBan;
+import br.com.ylorde.moderator_commands.ProxyKick;
+import br.com.ylorde.moderator_commands.ProxyMute;
+import br.com.ylorde.moderator_commands.ProxySoftBan;
 import br.com.ylorde.utils.ConfigManager;
 import br.com.ylorde.utils.SQLiteManager;
 import com.google.inject.Inject;
@@ -16,7 +20,6 @@ import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.nio.file.Path;
 import java.sql.Connection;
 

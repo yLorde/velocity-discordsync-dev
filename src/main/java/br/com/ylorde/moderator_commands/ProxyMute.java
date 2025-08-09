@@ -1,13 +1,13 @@
-package br.com.ylorde.commands;
+package br.com.ylorde.moderator_commands;
 
 import br.com.ylorde.Main;
 import com.velocitypowered.api.command.SimpleCommand;
 import org.jetbrains.annotations.NotNull;
 
-public class ProxyBan implements SimpleCommand {
+public class ProxyMute implements SimpleCommand {
     private final Main plugin;
 
-    public ProxyBan(Main plugin) {
+    public ProxyMute(Main plugin) {
         this.plugin = plugin;
     }
 
@@ -18,6 +18,6 @@ public class ProxyBan implements SimpleCommand {
 
     @Override
     public boolean hasPermission(final @NotNull Invocation invocation) {
-        return invocation.source().hasPermission("ydiscordsync.proxyban");
+        return invocation.source().hasPermission("ydiscordsync.proxymute");
     }
 }
