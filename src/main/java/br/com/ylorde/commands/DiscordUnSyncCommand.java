@@ -6,10 +6,8 @@ import br.com.ylorde.sqlite.SetDiscordIdByUUID;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -30,11 +28,9 @@ public class DiscordUnSyncCommand implements SimpleCommand {
         }
 
         UUID uuid = player.getUniqueId();
-        //String discord_id = plugin.getSQLiteManager().getDiscordIdByUUID(uuid);
         String discord_id = new GetDiscordIdByUUID(plugin).getDiscordIdByUUID(uuid);
 
         if (discord_id  !=  null) {
-            //boolean success = plugin.getSQLiteManager().setDiscordIdByUUID(uuid.toString(), null);
             boolean success = new SetDiscordIdByUUID(plugin).setDiscordIdByUUID(uuid.toString(), null);
             if (success) {
                 source.sendRichMessage("<green>Você foi desvinculado ao discord com sucesso!</green>");

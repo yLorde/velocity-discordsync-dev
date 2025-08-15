@@ -44,6 +44,13 @@ public class ConfigManager {
             defaultConfig.node("CONSOLE_COMMAND_WHEN_PLAYER_SYNC").set("NEEDS_CONFIG");
             defaultConfig.node("CONSOLE_COMMAND_WHEN_PLAYER_UNSYNC").set("NEEDS_CONFIG");
 
+            defaultConfig.node("USE_MODERATOR_FUNCTIONS").set(false);
+
+            defaultConfig.node("KICK_MESSAGE_FORMAT").set("&eVocê expulso!\n&7Motivo:\n\n&c%reason");
+            defaultConfig.node("BAN_MESSAGE_FORMAT").set("&cVocê foi banido!\n&7Motivo: &e%reason\n&7Tempo restante: %time_remaining");
+
+            defaultConfig.node("AUTO_UPDATE").set(true);
+
             loader.save(defaultConfig);
         }
 

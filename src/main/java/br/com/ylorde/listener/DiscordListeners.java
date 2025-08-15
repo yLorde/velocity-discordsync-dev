@@ -16,21 +16,30 @@ public class DiscordListeners extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         McNicknameCommand mc_nickname = new McNicknameCommand(plugin, event);
-        mc_nickname.execute();
+        mc_nickname.execute("mc_nickname");
 
         SyncDiscordCommand sync = new SyncDiscordCommand(plugin, event);
-        sync.execute();
+        sync.execute("sync");
 
         UnSyncDiscordCommand unsync = new UnSyncDiscordCommand(plugin, event);
-        unsync.execute();
+        unsync.execute("unsync");
 
         AllPlayersNotLinkedCommand allPlayersNotLinkedCommand = new AllPlayersNotLinkedCommand(plugin, event);
-        allPlayersNotLinkedCommand.execute();
+        allPlayersNotLinkedCommand.execute("all_players_not_linked");
 
         AllPlayersLinkedCommand allPlayersLinkedCommand = new AllPlayersLinkedCommand(plugin, event);
-        allPlayersLinkedCommand.execute();
+        allPlayersLinkedCommand.execute("all_players_linked");
 
         AllPlayersCommand allPlayersCommand = new AllPlayersCommand(plugin, event);
-        allPlayersCommand.execute();
+        allPlayersCommand.execute("all_players");
+
+        McKickPlayerCommand mcKickPlayerCommand = new McKickPlayerCommand(plugin, event);
+        mcKickPlayerCommand.execute("mc_kick_player");
+
+        McBanPlayerCommand mcBanPlayerCommand = new McBanPlayerCommand(plugin, event);
+        mcBanPlayerCommand.execute("mc_ban_player");
+
+        McUnBanCommand mcUnBanCommand = new McUnBanCommand(plugin, event);
+        mcUnBanCommand.execute("mc_unban_player");
     }
 }

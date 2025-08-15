@@ -1,7 +1,6 @@
 package br.com.ylorde.sqlite;
 
 import br.com.ylorde.Main;
-import okhttp3.internal.platform.ConscryptPlatform;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
