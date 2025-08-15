@@ -2,10 +2,6 @@ package br.com.ylorde;
 
 import br.com.ylorde.commands.*;
 import br.com.ylorde.listener.LoginListener;
-import br.com.ylorde.moderator_commands.ProxyBan;
-import br.com.ylorde.moderator_commands.ProxyKick;
-import br.com.ylorde.moderator_commands.ProxyMute;
-import br.com.ylorde.moderator_commands.ProxySoftBan;
 import br.com.ylorde.utils.ConfigManager;
 import br.com.ylorde.utils.SQLiteManager;
 import com.google.inject.Inject;
@@ -54,7 +50,9 @@ public class Main {
 
     @Subscribe
     public void onProxyInitialize(ProxyInitializeEvent event) {
-        new AutoUpdater(server, logger, this).checkForUpdate();
+        if (configManager.getBool("AUTO_UPDATE")) {
+            new AutoUpdater(server, logger, this).checkForUpdate();
+        }
 
         this.sqliteManager = new SQLiteManager(new File("plugins/ydiscordsync"), this.logger);
         this.sqliteManager.setupTables();
@@ -67,14 +65,24 @@ public class Main {
         server.getCommandManager().register("discord", new DiscordCommand(this));
 
         //MODERATOR
-        server.getCommandManager().register("proxyBan", new ProxyBan(this));
-        server.getCommandManager().register("proxyKick", new ProxyKick(this));
-        server.getCommandManager().register("proxyMute", new ProxyMute(this));
-        server.getCommandManager().register("proxySoftBan", new ProxySoftBan(this));
 
         server.getEventManager().register(this, new LoginListener(this));
 
-        logger.info("Plugin iniciado!");
+        logger.info("\n");
+
+        logger.info("██╗░░░██╗██╗░░░░░░█████╗░██████╗░██████╗░███████╗");
+        logger.info("╚██╗░██╔╝██║░░░░░██╔══██╗██╔══██╗██╔══██╗██╔════╝");
+        logger.info("░╚████╔╝░██║░░░░░██║░░██║██████╔╝██║░░██║█████╗░░");
+        logger.info("░░╚██╔╝░░██║░░░░░██║░░██║██╔══██╗██║░░██║██╔══╝░░");
+        logger.info("░░░██║░░░███████╗╚█████╔╝██║░░██║██████╔╝███████╗");
+        logger.info("░░░╚═╝░░░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░╚══════╝\n");
+
+        logger.info("██████╗░██████╗░░█████╗░██╗░░██╗██╗░░░██╗");
+        logger.info("██╔══██╗██╔══██╗██╔══██╗╚██╗██╔╝╚██╗░██╔╝");
+        logger.info("██████╔╝██████╔╝██║░░██║░╚███╔╝░░╚████╔╝░");
+        logger.info("██╔═══╝░██╔══██╗██║░░██║░██╔██╗░░░╚██╔╝░░");
+        logger.info("██║░░░░░██║░░██║╚█████╔╝██╔╝╚██╗░░░██║░░░");
+        logger.info("╚═╝░░░░░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░\n");
     }
 
     @Subscribe
