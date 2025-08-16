@@ -24,8 +24,8 @@ import java.sql.Connection;
         name = "yDiscordSync",
         version = "1.5",
         description = "Plugin feito para conectar o servidor de Minecraft ao Discord.",
-        url = "https://www.ylorde.com.br",
-        authors = {"yLorde_", "Luccas Person"}
+        url = "www.ylorde.com.br",
+        authors = {"yLorde_"}
 )
 public class Main {
     private final ProxyServer server;
