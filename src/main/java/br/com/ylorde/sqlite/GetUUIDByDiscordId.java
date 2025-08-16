@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class GetUUIDByDiscordId {
     private final Main plugin;
 
-    public GetUUIDByDiscordId(Main plugin) {
+    public  GetUUIDByDiscordId(Main plugin) {
         this.plugin = plugin;
     }
 
