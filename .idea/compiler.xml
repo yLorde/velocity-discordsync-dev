@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="yDcSync-v1.1" />
-        <module name="yDiscordSync" />
+        <module name="DiscordSync" />
       </profile>
     </annotationProcessing>
   </component>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/yDiscordSync.iml" filepath="$PROJECT_DIR$/yDiscordSync.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DiscordSync.iml" filepath="$PROJECT_DIR$/DiscordSync.iml" />
     </modules>
   </component>
 </project>

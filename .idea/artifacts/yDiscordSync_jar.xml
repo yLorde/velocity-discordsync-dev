@@ -2,7 +2,7 @@
   <artifact type="jar" name="yDiscordSync:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/yDiscordSync_jar</output-path>
     <root id="archive" name="yDiscordSync.jar">
-      <element id="module-output" name="yDiscordSync" />
+      <element id="module-output" name="DiscordSync" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.10/kotlin-stdlib-common-1.9.10.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.16.0/jackson-core-2.16.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar" path-in-jar="/" />

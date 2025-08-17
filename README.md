@@ -1,4 +1,4 @@
-# yDiscordSync
+# DiscordSync
 - Author: yLorde
 - Website: https://www.ylorde.com.br
 - API-Version: 3.4.0
